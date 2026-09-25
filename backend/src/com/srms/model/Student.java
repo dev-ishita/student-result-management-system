@@ -5,14 +5,15 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Represents a single student record: identity fields plus the list
- * of subjects/marks that belong to them.
- *
- * Total/percentage/grade calculation is intentionally NOT here yet —
- * that's added as its own set of methods in the next build step, so
- * this class stays focused purely on holding and validating data.
+ * Represents a single student record: identity fields, the list of
+ * subjects/marks that belong to them, and the OOP methods that turn
+ * those marks into a total, percentage, letter grade, and pass/fail
+ * status.
  */
 public class Student {
+
+    /** Minimum percentage required in a single subject to pass it. */
+    private static final double PASS_THRESHOLD_PERCENTAGE = 40.0;
 
     private String rollNo;
     private String name;
@@ -105,6 +106,65 @@ public class Student {
         return Collections.unmodifiableList(subjects);
     }
 
+    // ---- Calculation methods (OOP methods, as the spec asks for) ----
+
+    /** Sum of marks obtained across every subject. */
+    public double getTotalMarksObtained() {
+        double total = 0;
+        for (Subject s : subjects) {
+            total += s.getMarksObtained();
+        }
+        return total;
+    }
+
+    /** Sum of the maximum possible marks across every subject. */
+    public double getTotalMaxMarks() {
+        double total = 0;
+        for (Subject s : subjects) {
+            total += s.getMaxMarks();
+        }
+        return total;
+    }
+
+    /** Overall percentage across all subjects. Returns 0 if no subjects have been added yet. */
+    public double getPercentage() {
+        double maxTotal = getTotalMaxMarks();
+        if (maxTotal == 0) {
+            return 0.0;
+        }
+        return (getTotalMarksObtained() / maxTotal) * 100.0;
+    }
+
+    /** Letter grade derived from overall percentage. */
+    public String getGrade() {
+        double pct = getPercentage();
+        if (pct >= 90) return "A+";
+        if (pct >= 80) return "A";
+        if (pct >= 70) return "B+";
+        if (pct >= 60) return "B";
+        if (pct >= 50) return "C";
+        if (pct >= 40) return "D";
+        return "F";
+    }
+
+    /**
+     * A student passes only if they've cleared the pass threshold in
+     * EVERY subject individually — a strong overall percentage doesn't
+     * make up for failing one subject. Returns false if no subjects
+     * have been recorded yet.
+     */
+    public boolean isPass() {
+        if (subjects.isEmpty()) {
+            return false;
+        }
+        for (Subject s : subjects) {
+            if (s.getPercentage() < PASS_THRESHOLD_PERCENTAGE) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -112,6 +172,9 @@ public class Student {
             ", name='" + name + '\'' +
             ", className='" + className + '\'' +
             ", subjects=" + subjects +
+            ", percentage=" + String.format("%.2f", getPercentage()) +
+            ", grade='" + getGrade() + '\'' +
+            ", pass=" + isPass() +
             '}';
     }
 }
