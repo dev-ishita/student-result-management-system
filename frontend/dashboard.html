@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Class summary - Result Manager</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+  <span class="brand">Result Manager</span>
+  <a href="index.html">Add student</a>
+  <a href="search.html">Find result</a>
+  <a href="dashboard.html" class="active">Class summary</a>
+</nav>
+<main>
+  <h1>Class summary</h1>
+  <p class="lead">See the topper, average and pass rate for a class.</p>
+  <form id="class-form" class="card">
+    <div class="search-row">
+      <div><label for="class-name">Class</label><input id="class-name" placeholder="e.g. 10A" required></div>
+      <span></span>
+      <button type="submit">Show summary</button>
+    </div>
+    <p id="message" class="message" role="status"></p>
+  </form>
+  <div id="summary" hidden>
+    <div class="stats">
+      <div class="stat"><div class="value" id="stat-count">-</div><div class="label">Students</div></div>
+      <div class="stat"><div class="value" id="stat-average">-</div><div class="label">Average percentage</div></div>
+      <div class="stat"><div class="value" id="stat-pass">-</div><div class="label">Pass percentage</div></div>
+      <div class="stat"><div class="value" id="stat-topper">-</div><div class="label">Topper</div></div>
+    </div>
+    <div class="card">
+      <h2>All results</h2>
+      <table>
+        <thead><tr><th>Roll no.</th><th>Name</th><th>Total</th><th>Percentage</th><th>Grade</th><th>Result</th></tr></thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>
