@@ -60,3 +60,5 @@ th { font-size: .9rem; color: var(--muted); font-weight: 600; }
   .subject-row { grid-template-columns: 1fr 1fr; }
   .subject-row input:first-child { grid-column: 1 / -1; }
 }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .5rem; }
+.chart-wrap { position: relative; height: 300px; }

@@ -32,7 +32,14 @@
       <div class="stat"><div class="value" id="stat-topper">-</div><div class="label">Topper</div></div>
     </div>
     <div class="card">
-      <h2>All results</h2>
+      <h2>Class performance</h2>
+      <div class="chart-wrap"><canvas id="class-chart" aria-label="Bar chart of each student's percentage"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <h2>All results</h2>
+        <button type="button" id="download-report" class="secondary">Download report (CSV)</button>
+      </div>
       <table>
         <thead><tr><th>Roll no.</th><th>Name</th><th>Total</th><th>Percentage</th><th>Grade</th><th>Result</th></tr></thead>
         <tbody id="results-body"></tbody>
@@ -40,6 +47,7 @@
     </div>
   </div>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

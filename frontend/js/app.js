@@ -135,6 +135,58 @@ if (searchForm) {
 const classForm = document.getElementById("class-form");
 if (classForm) {
   const summary = document.getElementById("summary");
+  let lastSummary = null;
+  let chart = null;
+
+  function drawChart(students) {
+    if (typeof Chart === "undefined") return; // chart library didn't load (offline)
+    if (chart) chart.destroy();
+    chart = new Chart(document.getElementById("class-chart"), {
+      type: "bar",
+      data: {
+        labels: students.map(s => s.name),
+        datasets: [{
+          label: "Percentage",
+          data: students.map(s => s.percentage),
+          backgroundColor: students.map(s => s.pass ? "#1f7a4d" : "#b3402f")
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: { y: { min: 0, max: 100, title: { display: true, text: "Percentage" } } },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+
+  function csvCell(value) {
+    const text = String(value);
+    return /[",\n]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text;
+  }
+
+  document.getElementById("download-report").addEventListener("click", () => {
+    if (!lastSummary) return;
+    const lines = [
+      ["Roll no", "Name", "Class", "Total marks", "Max marks", "Percentage", "Grade", "Result"],
+      ...lastSummary.students.map(s => [
+        s.rollNo, s.name, s.className, s.totalMarksObtained, s.totalMaxMarks,
+        s.percentage, s.grade, s.pass ? "Pass" : "Fail"
+      ])
+    ].map(row => row.map(csvCell).join(","));
+    lines.push("");
+    lines.push(["Class", lastSummary.className].map(csvCell).join(","));
+    lines.push(["Students", lastSummary.studentCount].map(csvCell).join(","));
+    lines.push(["Average percentage", lastSummary.averagePercentage].map(csvCell).join(","));
+    lines.push(["Pass percentage", lastSummary.passPercentage].map(csvCell).join(","));
+    lines.push(["Topper", lastSummary.topper.name].map(csvCell).join(","));
+
+    const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "class-" + lastSummary.className + "-report.csv";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
 
   classForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -157,6 +209,8 @@ if (classForm) {
           <td>${resultText(s)}</td>
         </tr>`).join("");
       summary.hidden = false;
+      lastSummary = d;
+      drawChart(d.students);
     } catch (e) {
       showMessage(e.message, "error");
     }
