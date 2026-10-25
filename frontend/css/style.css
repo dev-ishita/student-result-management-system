@@ -62,3 +62,12 @@ th { font-size: .9rem; color: var(--muted); font-weight: 600; }
 }
 .card-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .5rem; }
 .chart-wrap { position: relative; height: 300px; }
+.narrow { max-width: 420px; margin: 0 auto; }
+.field { margin-bottom: 1rem; }
+.hint { color: var(--muted); font-size: .9rem; margin: 1rem 0 0; }
+.card.result-pass { border-left: 6px solid var(--pass); }
+.card.result-fail { border-left: 6px solid var(--fail); }
+tr.row-pass td { background: #f1f9f4; }
+tr.row-fail td { background: #fdf1ef; }
+.table-scroll { overflow: auto; max-height: 360px; }
+.notice { background: #fff6e0; border: 1px solid #ecd9a0; border-radius: 4px; padding: .7rem 1rem; margin-bottom: 1rem; }

@@ -2,3 +2,7 @@ rollNo,name,className,subjectMarks
 101,Ishita,10A,Maths:85.0:100.0;Physics:78.0:100.0
 102,Rahul,10A,Maths:95.0:100.0;Physics:60.0:100.0
 103,Disha,10A,Maths:73.0:100.0;English:86.0:100.0
+104,Aryan,10A,Maths:78.0:100.0;English:88.0:100.0
+25,aarav,10a,English:12.0:100.0;dbms:23.0:100.0
+105,Sanvi,10A,Maths:91.0:100.0;English:93.0:100.0;DBMS:85.0:100.0
+106,Rhea,10A,Maths:92.0:100.0;English:95.0:100.0;DBMS:90.0:100.0

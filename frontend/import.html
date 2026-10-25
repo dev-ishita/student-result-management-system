@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Import students - Result Manager</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav>
+  <span class="brand">Result Manager</span>
+  <a href="index.html">Add student</a>
+  <a href="search.html">Find result</a>
+  <a href="dashboard.html">Class summary</a>
+</nav>
+<main>
+  <h1>Import students</h1>
+  <p class="lead">Upload an Excel (.xlsx, .xls) or CSV sheet to add many students at once.</p>
+  <section id="import-section" class="card">
+    <p>The first row must have <strong>Roll No</strong>, <strong>Name</strong> and <strong>Class</strong>, then one column per subject.
+       Subjects are out of 100 unless the header says otherwise, for example <strong>Chemistry (50)</strong>.
+       Leave a mark blank if a student has none for that subject.</p>
+    <div class="actions">
+      <button type="button" id="download-template" class="secondary">Download template</button>
+    </div>
+    <div class="field" style="margin-top:1rem">
+      <label for="file-input">Choose a file</label>
+      <input id="file-input" type="file" accept=".xlsx,.xls,.csv">
+    </div>
+    <p id="message" class="message" role="status"></p>
+  </section>
+  <div id="preview"></div>
+  <div class="actions"><button type="button" id="import-btn" hidden>Import</button></div>
+  <div id="report"></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
